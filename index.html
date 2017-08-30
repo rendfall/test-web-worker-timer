@@ -13,22 +13,40 @@
 
     <script src="./src/app.js" type="text/javascript"></script>
     <script type="text/javascript">
+        let isCounting = false;
         let $timerContainer = document.getElementById('timer-container');
         let $startTimerBtn = document.getElementById('start-timer');
         let $stopTimerBtn = document.getElementById('stop-timer');
         let timer = new window.Timer();
 
-        timer.onUpdate((value) => {
-            $timerContainer.innerText = value;
-        });
+        function startTimer() {
+            if (isCounting) {
+                return console.log('⏱ Timer is counting');
+            }
 
-        timer.onError(() => {
-            $timerContainer.innerText = '--:--';
-            throw new Error('💩 Something goes wrong...');
-        });
+            timer.start();
 
-        $startTimerBtn.addEventListener('click', () => timer.start());
-        $stopTimerBtn.addEventListener('click', () => timer.stop());
+            timer.onUpdate((value) => {
+                $timerContainer.innerText = value;
+            });
+
+            timer.onError(() => {
+                $timerContainer.innerText = '--:--';
+                throw new Error('💩 Something goes wrong...');
+            });
+
+            isCounting = true;
+            console.log('▶ Timer has been started');
+        }
+
+        function stopTimer() {
+            timer.stop();
+            isCounting = false;
+            console.log('⏹ Timer has been stopped');
+        }
+
+        $startTimerBtn.addEventListener('click', startTimer);
+        $stopTimerBtn.addEventListener('click', stopTimer);
     </script>
 </body>
 </html>
