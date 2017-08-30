@@ -5,12 +5,12 @@ function lpad(n) {
 }
 
 function tick(startFrom) {
-   let d = Date.now();
-   let diff = d - startFrom;
-   let minutes = Math.floor(diff / 1000 / 60);
-   let seconds = Math.floor(diff / 1000) - minutes * 60;
+    let d = Date.now();
+    let diff = d - startFrom;
+    let minutes = Math.floor(diff / 1000 / 60);
+    let seconds = Math.floor(diff / 1000) - minutes * 60;
 
-   self.postMessage(`${lpad(minutes)}:${lpad(seconds)}`);
+    self.postMessage(`${lpad(minutes)}:${lpad(seconds)}`);
 }
 
 function onMessage(message) {

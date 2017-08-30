@@ -5,15 +5,17 @@
         constructor() {
             this.isWebWorkersSupported = (typeof Worker !== 'undefined');
             this.worker = null;
-            this.setup();
+            this.setupWorker();
         }
 
-        setup() {
+        setupWorker() {
             if (!this.isWebWorkersSupported) {
                 return console.log('%c😢 Web Workers are not supported...', 'color:#ff8b56');
             }
 
-            this.createWorker();
+            if (this.worker === null) {
+                this.createWorker();
+            }
         }
 
         createWorker() {
@@ -34,6 +36,7 @@
         }
 
         start() {
+            this.setupWorker();
             this.worker.postMessage('start');
         }
 
